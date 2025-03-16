@@ -55,7 +55,11 @@ public class UrlServiceImpl implements UrlService {
 	}
 
 	private double calculateDailyAccess(UrlModel model) {
-		long days = ChronoUnit.DAYS.between(model.getDateFirstAccess(), LocalDate.now()) + 1;
+		long days = 0;
+		if (model.getDailyAccessAverage() != null)
+			days = ChronoUnit.DAYS.between(model.getDateFirstAccess(), LocalDate.now()) + 1;
+		else
+			days = 1;
 		
 		return model.getAccessCount() / days;
 		
